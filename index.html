@@ -45,7 +45,7 @@
             let userImageLink = profile.getImageUrl();
             const userImage = document.querySelector("#user-image").src = userImageLink;
             userImage.alt = userName + "'s picture";
-            localStorage.setItem("logged", JSON.stringify(true));
+            localStorage.setItem("logged", JSON.stringify(false));
         }
 
 
