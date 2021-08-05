@@ -13,36 +13,129 @@
 <body>
     <center>
         <h1>Hello There</h1>
-        <div class="g-signin2"></div>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div style="margin-top: 5rem;" id="user-info">
+            <img src="" alt="" id="user-image">
+            <h2 id="user-name"></h2>
+            <h2 id="user-email"></h2>
+        </div>
     </center>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script>
         if (!localStorage.getItem("logged")) {
-            let logged = false;
-            localStorage.setItem("logged", JSON.stringify(logged));
+            localStorage.setItem("logged", JSON.stringify(false));
         }
-        const signInButton = document.querySelector(".g-signin2");
-        let getLogged = JSON.parse(localStorage.getItem("logged"));
-        signInButton.addEventListener("click", () => {
-            if (!getLogged) {
-                let getLogged = JSON.parse(localStorage.getItem("logged"));
-                getLogged = true;
-                localStorage.setItem("logged", JSON.stringify(getLogged));
-                let auth2 = gapi.aut2.getAuthInstance();
-                auth2.signOut().then(() => {
-                    console.log("User Signed out.");
-                })
-            } else {
-                getLogged = false;
-                localStorage.setItem("logged", JSON.stringify(getLogged));
-                let profile = googleUser.getBasicProfile();
-                console.log("ID: " + profile.getId());
-                console.log("Name: " + profile.getName());
-                console.log("Image URL: " + profile.getImageUrl());
-                console.log("Email: " + profile.getEmail());
 
-            }
-        })
+
+        const signInButton = document.querySelector(".g-signin2");
+        signInButton.addEventListener("click", (googleUser) => {
+            let auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(() => {
+                console.log("signed out")
+                localStorage.setItem("logged", JSON.stringify(false));
+            });
+        });
+
+        function onSignIn(googleUser) {
+            let profile = googleUser.getBasicProfile();
+            const userName = document.querySelector("#user-name").textContent = profile.getName() || profile.getGivenName();
+            const title = document.querySelector("h1");
+            title.textContent = "Hello, " + userName
+            const userEmail = document.querySelector("#user-email").textContent = profile.getEmail();
+            let userImageLink = profile.getImageUrl();
+            const userImage = document.querySelector("#user-image").src = userImageLink;
+            userImage.alt = userName + "'s picture";
+            localStorage.setItem("logged", JSON.stringify(true));
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // if (!getLogged) {
+        // getLogged = false;
+        // localStorage.setItem("logged", JSON.stringify(getLogged));
+
+        // let getLogged = JSON.parse(localStorage.getItem("logged"));
+        // getLogged = true;
+        // localStorage.setItem("logged", JSON.stringify(getLogged));
+        // let auth2 = gapi.auth2.getAuthInstance();
+        // auth2.signOut().then(() => {
+        //     console.log("User Signed out.");
+        // })
+        // }
+        //  else {
+        //     getLogged = false;
+        //     localStorage.setItem("logged", JSON.stringify(getLogged));
+        //     let profile = googleUser.getBasicProfile();
+        //     console.log("ID: " + profile.getId());
+        //     console.log("Name: " + profile.getName());
+        //     console.log("Image URL: " + profile.getImageUrl());
+        //     console.log("Email: " + profile.getEmail());
+
+        // }
     </script>
 </body>
 
