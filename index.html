@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="548036515054-ki3fqv3v83sevfpf9bng3mv8mfrb26qa.apps.googleusercontent.com">
+    <link rel="icon" href="#">
+    <title>PW-AUTH</title>
+</head>
+
+<body>
+    <center>
+        <h1>Hello There</h1>
+        <div class="g-signin2"></div>
+    </center>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        if (!localStorage.getItem("logged")) {
+            let logged = false;
+            localStorage.setItem("logged", JSON.stringify(logged));
+        }
+        const signInButton = document.querySelector(".g-signin2");
+        let getLogged = JSON.parse(localStorage.getItem("logged"));
+        signInButton.addEventListener("click", () => {
+            if (!getLogged) {
+                let getLogged = JSON.parse(localStorage.getItem("logged"));
+                getLogged = true;
+                localStorage.setItem("logged", JSON.stringify(getLogged));
+                let auth2 = gapi.aut2.getAuthInstance();
+                auth2.signOut().then(() => {
+                    console.log("User Signed out.");
+                })
+            } else {
+                getLogged = false;
+                localStorage.setItem("logged", JSON.stringify(getLogged));
+                let profile = googleUser.getBasicProfile();
+                console.log("ID: " + profile.getId());
+                console.log("Name: " + profile.getName());
+                console.log("Image URL: " + profile.getImageUrl());
+                console.log("Email: " + profile.getEmail());
+
+            }
+        })
+    </script>
+</body>
+
+</html>
