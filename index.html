@@ -13,15 +13,20 @@
 <body>
     <center>
         <h1>Hello There</h1>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div id="g_id_onload" data-client_id="548036515054-ki3fqv3v83sevfpf9bng3mv8mfrb26qa.apps.googleusercontent.com" data-login_uri="https://localhost:5000" data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
+        </div>
+
         <div style="margin-top: 5rem;" id="user-info">
             <img src="" alt="" id="user-image">
             <h2 id="user-name"></h2>
             <h2 id="user-email"></h2>
         </div>
     </center>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- <script>
         if (!localStorage.getItem("logged")) {
             localStorage.setItem("logged", JSON.stringify(false));
         }
@@ -136,7 +141,7 @@
         //     console.log("Email: " + profile.getEmail());
 
         // }
-    </script>
+    </script> -->
 </body>
 
 </html>
